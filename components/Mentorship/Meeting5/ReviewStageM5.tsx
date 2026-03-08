@@ -415,7 +415,7 @@ export const ReviewStageM5: React.FC<ReviewStageM5Props> = ({
                 </div>
 
                 <div className="overflow-x-auto print:overflow-visible">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full min-w-[700px] text-left border-collapse">
                         <thead>
                             <tr className="border-b border-slate-700 text-slate-400 text-xs uppercase print:text-gray-500 print:border-gray-300">
                                 <th className="p-3">Categoria</th>

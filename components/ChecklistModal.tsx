@@ -257,39 +257,41 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({
                 return (
                     <div className="not-italic mt-2">
                         <strong className="block mb-2 text-[10px] uppercase border-b pb-1">Detalhamento das Negociações:</strong>
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="border-b border-gray-300">
-                                    <th className="py-1 pr-2 uppercase text-[8px] font-bold">Dívida/Credor</th>
-                                    <th className="py-1 px-2 uppercase text-[8px] font-bold">Vlr. Parcela</th>
-                                    <th className="py-1 px-2 uppercase text-[8px] font-bold">Prazo</th>
-                                    <th className="py-1 px-2 uppercase text-[8px] font-bold">Juros</th>
-                                    <th className="py-1 pl-2 uppercase text-[8px] font-bold text-right">Término</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {negotiations.map((neg: any, idx: number) => (
-                                    <tr key={idx} className="border-b border-gray-100 last:border-0 text-[9px]">
-                                        <td className="py-1.5 pr-2">
-                                            <span className="font-bold block">{neg.name}</span>
-                                            <span className="text-[7px] text-gray-500 uppercase">{neg.creditor}</span>
-                                        </td>
-                                        <td className="py-1.5 px-2 font-bold">
-                                            {neg.installmentValue ? `R$ ${neg.installmentValue}` : '---'}
-                                        </td>
-                                        <td className="py-1.5 px-2">
-                                            {neg.quantity ? `${neg.quantity}x` : '---'}
-                                        </td>
-                                        <td className="py-1.5 px-2">
-                                            {neg.interestRate || '---'}
-                                        </td>
-                                        <td className="py-1.5 pl-2 text-right font-black text-sky-700 uppercase">
-                                            {neg.endDate || '---'}
-                                        </td>
+                        <div className="overflow-x-auto w-full">
+                            <table className="w-full min-w-[600px] text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-gray-300">
+                                        <th className="py-1 pr-2 uppercase text-[8px] font-bold">Dívida/Credor</th>
+                                        <th className="py-1 px-2 uppercase text-[8px] font-bold">Vlr. Parcela</th>
+                                        <th className="py-1 px-2 uppercase text-[8px] font-bold">Prazo</th>
+                                        <th className="py-1 px-2 uppercase text-[8px] font-bold">Juros</th>
+                                        <th className="py-1 pl-2 uppercase text-[8px] font-bold text-right">Término</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {negotiations.map((neg: any, idx: number) => (
+                                        <tr key={idx} className="border-b border-gray-100 last:border-0 text-[9px]">
+                                            <td className="py-1.5 pr-2">
+                                                <span className="font-bold block">{neg.name}</span>
+                                                <span className="text-[7px] text-gray-500 uppercase">{neg.creditor}</span>
+                                            </td>
+                                            <td className="py-1.5 px-2 font-bold">
+                                                {neg.installmentValue ? `R$ ${neg.installmentValue}` : '---'}
+                                            </td>
+                                            <td className="py-1.5 px-2">
+                                                {neg.quantity ? `${neg.quantity}x` : '---'}
+                                            </td>
+                                            <td className="py-1.5 px-2">
+                                                {neg.interestRate || '---'}
+                                            </td>
+                                            <td className="py-1.5 pl-2 text-right font-black text-sky-700 uppercase">
+                                                {neg.endDate || '---'}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 );
             } catch (e) {

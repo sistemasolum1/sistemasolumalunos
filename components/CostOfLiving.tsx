@@ -700,31 +700,33 @@ export const CostOfLiving: React.FC<CostOfLivingProps> = ({
                                                     {catTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                                                 </span>
                                             </div>
-                                            <table className="w-full text-sm">
-                                                <thead>
-                                                    <tr className="text-left text-slate-500 text-xs uppercase">
-                                                        <th className="pb-2 font-bold w-3/4">Descrição</th>
-                                                        <th className="pb-2 font-bold text-right">Valor</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="text-black">
-                                                    {catItems.map(item => (
-                                                        <tr key={item.id} className="border-b border-slate-100">
-                                                            <td className="py-2">{item.description}</td>
-                                                            <td className="py-2 text-right font-medium">
-                                                                {item.is_installment ? (
-                                                                    <div className="flex flex-col items-end">
-                                                                        <span>{item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} <span className="text-[10px] text-slate-400 uppercase">({item.installments_count}x)</span></span>
-                                                                        <span className="text-[10px] text-slate-400 uppercase font-normal">Total: {(item.value * (item.installments_count || 1)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                                                                    </div>
-                                                                ) : (
-                                                                    item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-                                                                )}
-                                                            </td>
+                                            <div className="overflow-x-auto w-full">
+                                                <table className="w-full min-w-[600px] text-sm">
+                                                    <thead>
+                                                        <tr className="text-left text-slate-500 text-xs uppercase">
+                                                            <th className="pb-2 font-bold w-3/4">Descrição</th>
+                                                            <th className="pb-2 font-bold text-right">Valor</th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody className="text-black">
+                                                        {catItems.map(item => (
+                                                            <tr key={item.id} className="border-b border-slate-100">
+                                                                <td className="py-2">{item.description}</td>
+                                                                <td className="py-2 text-right font-medium">
+                                                                    {item.is_installment ? (
+                                                                        <div className="flex flex-col items-end">
+                                                                            <span>{item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} <span className="text-[10px] text-slate-400 uppercase">({item.installments_count}x)</span></span>
+                                                                            <span className="text-[10px] text-slate-400 uppercase font-normal">Total: {(item.value * (item.installments_count || 1)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                                                                        </div>
+                                                                    ) : (
+                                                                        item.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                                                                    )}
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     );
                                 })}
