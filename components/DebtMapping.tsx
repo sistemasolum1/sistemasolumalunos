@@ -11,7 +11,8 @@ import {
     ArrowLeft,
     TrendingDown,
     Building2,
-    CalendarClock
+    CalendarClock,
+    ThumbsUp
 } from 'lucide-react';
 import { DebtMapItem } from '../types';
 import { PrintPortal } from './PrintPortal';
@@ -108,7 +109,30 @@ export const DebtMapping: React.FC<DebtMappingProps> = ({ onClose, onSave, initi
     };
 
     const handleSaveAll = () => {
+        if (name || originalValue || installmentValue) {
+            alert("Você tem dados preenchidos no formulário. Clique em 'Salvar Dívida' para incluí-los na lista antes de continuar.");
+            return;
+        }
         onSave(debts);
+    };
+
+    const handleNoDebts = () => {
+        if (window.confirm("Confirmar que você não possui dívidas?")) {
+            const noDebtItem: DebtMapItem = {
+                id: 'no-debts',
+                name: 'Não possui dívidas',
+                creditor: '-',
+                originalValue: 0,
+                installmentValue: 0,
+                totalInstallments: 0,
+                remainingInstallments: 0,
+                currentValue: 0,
+                interestRate: '0',
+                endDate: new Date().toISOString(),
+                createdAt: new Date().toISOString()
+            };
+            onSave([noDebtItem]);
+        }
     };
 
     const resetForm = () => {
@@ -433,12 +457,22 @@ export const DebtMapping: React.FC<DebtMappingProps> = ({ onClose, onSave, initi
                     >
                         <ArrowLeft size={16} /> Voltar
                     </button>
-                    <button
-                        onClick={handleSaveAll}
-                        className="px-8 py-3 rounded-xl bg-emerald-500 text-white hover:bg-emerald-400 transition-all text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 flex items-center gap-2"
-                    >
-                        <Save size={16} /> Concluir Mapeamento
-                    </button>
+                    <div className="flex gap-4">
+                        {debts.length === 0 && (
+                            <button
+                                onClick={handleNoDebts}
+                                className="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all text-xs font-black uppercase tracking-widest flex items-center gap-2"
+                            >
+                                <ThumbsUp size={16} /> Não Possuo Dívidas
+                            </button>
+                        )}
+                        <button
+                            onClick={handleSaveAll}
+                            className="px-8 py-3 rounded-xl bg-emerald-500 text-white hover:bg-emerald-400 transition-all text-xs font-black uppercase tracking-widest shadow-lg shadow-emerald-500/20 flex items-center gap-2"
+                        >
+                            <Save size={16} /> Concluir Mapeamento
+                        </button>
+                    </div>
                 </div>
             </div>
 
