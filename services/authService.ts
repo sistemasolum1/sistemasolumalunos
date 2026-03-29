@@ -347,8 +347,8 @@ export const authService = {
         }
     },
 
-    updateUserData: async (userId: string, updates: Partial<User>) => {
-        const { email, ...profileUpdates } = updates;
+    updateUserData: async (userId: string, updates: Partial<User> & { password?: string }) => {
+        const { email, password, ...profileUpdates } = updates as any;
 
         // 1. Se houver mudança de email, chamar RPC
         if (email) {
@@ -359,7 +359,16 @@ export const authService = {
             if (emailError) return { success: false, message: emailError.message };
         }
 
-        // 2. Atualizar outros dados do perfil
+        // 2. Se houver mudança de senha, chamar RPC
+        if (password) {
+            const { error: passwordError } = await supabase.rpc('update_user_password_by_admin', {
+                target_user_id: userId,
+                new_password: password
+            });
+            if (passwordError) return { success: false, message: passwordError.message };
+        }
+
+        // 3. Atualizar outros dados do perfil
         if (Object.keys(profileUpdates).length > 0) {
             const { error } = await supabase
                 .from('profiles')
